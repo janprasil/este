@@ -9,3 +9,10 @@
   height:10px;
   background: red;
 }
+
+.custom-slider .my-handle {
+  float: left;
+  background: green;
+  width: 10px;
+  height: 10px;
+}

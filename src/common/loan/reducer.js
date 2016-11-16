@@ -26,7 +26,7 @@ const State = {
   term: 0,
   amount: 0,
   isFetching: false,
-  results: [],
+  results: {},
 };
 
 const LoanReducer = (state = State, action) => {
@@ -43,15 +43,8 @@ const LoanReducer = (state = State, action) => {
     case actions.CHANGE_TERM: {
       return R.assocPath(['term'], action.payload.term, state);
     }
-    case actions.FETCH_OFFERS_START: {
-      return { ...state, isFetching: true };
-    }
     case actions.FETCH_OFFERS_SUCCESS: {
-      const nextState = { ...state, isFetching: false };
-      return R.assocPath(['results', action.payload.totalPrincipal, action.payload.term], action.payload, nextState);
-    }
-    case actions.FETCH_OFFERS_CACHED: {
-      return state;
+      return R.assocPath(['results', action.payload.totalPrincipal, action.payload.term], action.payload, state);
     }
     default:
       return state;

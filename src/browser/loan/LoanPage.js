@@ -3,6 +3,7 @@ import './style.css';
 import { fetchConstraints, changeAmount, changeTerm } from '../../common/loan/actions';
 import { connect } from 'react-redux';
 import ReactSlider from 'react-slider';
+import LoanSlider from './LoanSlider';
 
 @connect(state => ({ sliderConfiguration: state.loan.sliderConfiguration, results: state.loan.results, isFetching: state.loan.isFetching, term: state.loan.term, amount: state.loan.amount }), { fetchConstraints, changeAmount, changeTerm })
 export default class LoanPage extends Component {
@@ -12,6 +13,9 @@ export default class LoanPage extends Component {
     changeAmount: React.PropTypes.any,
     changeTerm: React.PropTypes.any,
     isFetching: React.PropTypes.bool,
+    term: React.PropTypes.number,
+    amount: React.PropTypes.number,
+    results: React.PropTypes.object,
   }
   componentWillMount() {
     const { fetchConstraints } = this.props;
@@ -19,31 +23,36 @@ export default class LoanPage extends Component {
   }
   render() {
     const { isFetching, sliderConfiguration, changeAmount, changeTerm, term, amount, results } = this.props;
-    // if (isFetching === true) return <div>Loading</div>;
     const { amountInterval, termInterval } = sliderConfiguration;
+    
+    if (isFetching === true) return <div>Loading whole component</div>;
+    
     const hasResult = results && results[amount] && results[amount][term];
     const result = hasResult ? results[amount][term] : null;
+
     return (
       <span>
         <h3>Loan Calculator</h3>
         <h4>Amount</h4>
-        <ReactSlider
-          defaultValue={amountInterval.defaultValue}
-          max={amountInterval.max}
-          min={amountInterval.min}
-          step={amountInterval.step}
+        <LoanSlider
+          value={amount}
+          interval={amountInterval}
           className="custom-slider"
-          onChange={(val) => changeAmount(val)}
+          onChange={val => changeAmount(val)}
         />
         <h4>Term</h4>
-        <ReactSlider
-          defaultValue={termInterval.defaultValue}
-          max={termInterval.max}
-          min={termInterval.min}
-          step={termInterval.step}
+        <LoanSlider
+          value={term}
+          interval={termInterval}
           className="custom-slider"
-          onChange={(val) => changeTerm(val)}
+          onChange={val => changeTerm(val)}
         />
+        <h4>Result</h4>
+        {!hasResult &&
+          <div>
+            <p>Counting result...</p>
+          </div>
+        }
         {hasResult &&
           <div>
             <p>Monthly Payment: { result.monthlyPayment }</p>
@@ -51,6 +60,8 @@ export default class LoanPage extends Component {
             <p>Total Repayable Amount: { result.totalRepayableAmount }</p>
           </div>
         }
+
+        <h4>End</h4>
       </span>
     );
   }

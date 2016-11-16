@@ -12,19 +12,28 @@ export const FETCH_OFFERS_CACHED = 'FETCH_OFFERS_CACHED';
 export const CHANGE_AMOUNT = 'CHANGE_AMOUNT';
 export const CHANGE_TERM = 'CHANGE_TERM';
 
-export const fetchConstraints = () => {
-  const promise = getConstraints();
-  return {
-    type: 'FETCH_CONSTRAINTS',
-    payload: promise,
-  };
-};
-
 export const fetchOffers = (amount, term) => {
   const promise = getOffers(amount, term);
   return {
     type: 'FETCH_OFFERS',
     payload: promise,
+  };
+};
+
+export const fetchConstraints = () => ({ dispatch }) => {
+  dispatch({
+    type: 'FETCH_CONSTRAINTS_START',
+  });
+  getConstraints().then((result) => {
+    const { amountInterval, termInterval } = result;
+    dispatch(fetchOffers(amountInterval.defaultValue, termInterval.defaultValue));
+    dispatch({
+      type: 'FETCH_CONSTRAINTS_SUCCESS',
+      payload: result,
+    });
+  });
+  return {
+    type: 'FETCH_CONSTRAINTS',
   };
 };
 
