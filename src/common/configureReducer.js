@@ -7,6 +7,7 @@ import intl from './intl/reducer';
 import themes from './themes/reducer';
 import todos from './todos/reducer';
 import users from './users/reducer';
+import loan from './loan/reducer';
 import { combineReducers } from 'redux';
 import { fieldsReducer as fields } from './lib/redux-fields';
 
@@ -39,6 +40,7 @@ const configureReducer = (initialState: Object) => {
     themes,
     todos,
     users,
+    loan,
   });
 
   // The power of higher-order reducers, http://slides.com/omnidan/hor

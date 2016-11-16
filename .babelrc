@@ -5,9 +5,11 @@
 // https://github.com/facebook/react-native/tree/master/babel-preset
 {
   "presets": ["react-native"],
+  "plugins": ["transform-decorators-legacy"],
   "env": {
     "production": {
       "plugins": [
+        "transform-decorators-legacy",
         "transform-react-constant-elements"
       ]
     }

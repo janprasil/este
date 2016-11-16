@@ -12,16 +12,11 @@ import { Match, ThemeProvider } from '../../common/app/components';
 import { Miss } from 'react-router';
 import { connect } from 'react-redux';
 
+
 // Pages
-import FieldsPage from '../fields/FieldsPage';
-import UsersPage from '../users/UsersPage';
+import LoanPage from '../loan/LoanPage';
 import HomePage from '../home/HomePage';
-import IntlPage from '../intl/IntlPage';
-import MePage from '../me/MePage';
 import NotFoundPage from '../notfound/NotFoundPage';
-import OfflinePage from '../offline/OfflinePage';
-import SignInPage from '../auth/SignInPage';
-import TodosPage from '../todos/TodosPage';
 
 // v4-alpha.getbootstrap.com/getting-started/introduction/#starter-template
 const bootstrap4Metas: any = [
@@ -38,8 +33,7 @@ const bootstrap4Metas: any = [
 
 let App = ({ currentLocale, currentTheme }) => (
   <ThemeProvider
-    key={currentTheme} // github.com/yahoo/react-intl/issues/234#issuecomment-163366518
-    theme={themes[currentTheme] || themes.initial}
+    theme={themes.initial}
   >
     <Container>
       <Helmet
@@ -48,8 +42,7 @@ let App = ({ currentLocale, currentTheme }) => (
           ...bootstrap4Metas,
           {
             name: 'description',
-            content: `Starter kit for universal full–fledged React apps. One stack
-              for browser, mobile, server.`,
+            content: 'Loan calculator',
           },
           ...favicon.meta,
         ]}
@@ -59,13 +52,7 @@ let App = ({ currentLocale, currentTheme }) => (
       />
       <Header />
       <Match exactly pattern="/" component={HomePage} />
-      <Match pattern="/fields" component={FieldsPage} />
-      <Match pattern="/users" component={UsersPage} />
-      <Match pattern="/intl" component={IntlPage} />
-      <Match pattern="/offline" component={OfflinePage} />
-      <Match pattern="/signin" component={SignInPage} />
-      <Match pattern="/todos" component={TodosPage} />
-      <Match authorized pattern="/me" component={MePage} />
+      <Match exactly pattern="/loan" component={LoanPage} />
       <Miss component={NotFoundPage} />
       <Footer />
     </Container>
