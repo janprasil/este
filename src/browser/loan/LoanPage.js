@@ -3,7 +3,13 @@ import React, { PureComponent as Component } from 'react';
 import { connect } from 'react-redux';
 import { changeAmount, changeTerm, fetchConstraints } from '../../common/loan/actions';
 
-@connect(state => ({ sliderConfiguration: state.loan.sliderConfiguration, results: state.loan.results, isFetching: state.loan.isFetching, term: state.loan.term, amount: state.loan.amount }), { fetchConstraints, changeAmount, changeTerm })
+@connect(state => ({
+  sliderConfiguration: state.loan.sliderConfiguration,
+  results: state.loan.results,
+  isFetching: state.loan.isFetching,
+  term: state.loan.term,
+  amount: state.loan.amount,
+}), { fetchConstraints, changeAmount, changeTerm })
 export default class LoanPage extends Component {
   static propTypes = {
     fetchConstraints: React.PropTypes.func,
@@ -56,7 +62,6 @@ export default class LoanPage extends Component {
             <p>Total Repayable Amount: { result.totalRepayableAmount }</p>
           </div>
         }
-
         <h4>End</h4>
       </span>
     );

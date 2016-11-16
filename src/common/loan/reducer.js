@@ -1,9 +1,29 @@
 import R from 'ramda';
 import * as actions from './actions';
 
+const LoanOffer = {
+  nothing: true,
+};
+
+const SliderConfiguration = {
+  amountInterval: {
+    defaultValue: 1000,
+    max: 10000,
+    min: 0,
+    step: 500,
+  },
+  termInterval: {
+    defaultValue: 1000,
+    max: 10000,
+    min: 0,
+    step: 1,
+  },
+};
+
+
 const State = {
-  offer: {},
-  sliderConfiguration: {},
+  offer: LoanOffer,
+  sliderConfiguration: SliderConfiguration,
   term: 0,
   amount: 0,
   isFetching: false,
