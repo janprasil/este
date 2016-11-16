@@ -1,9 +1,7 @@
-import React, { PureComponent as Component } from 'react';
-import './style.css';
-import { fetchConstraints, changeAmount, changeTerm } from '../../common/loan/actions';
-import { connect } from 'react-redux';
-import ReactSlider from 'react-slider';
 import LoanSlider from './LoanSlider';
+import React, { PureComponent as Component } from 'react';
+import { connect } from 'react-redux';
+import { changeAmount, changeTerm, fetchConstraints } from '../../common/loan/actions';
 
 @connect(state => ({ sliderConfiguration: state.loan.sliderConfiguration, results: state.loan.results, isFetching: state.loan.isFetching, term: state.loan.term, amount: state.loan.amount }), { fetchConstraints, changeAmount, changeTerm })
 export default class LoanPage extends Component {
@@ -24,9 +22,7 @@ export default class LoanPage extends Component {
   render() {
     const { isFetching, sliderConfiguration, changeAmount, changeTerm, term, amount, results } = this.props;
     const { amountInterval, termInterval } = sliderConfiguration;
-    
-    if (isFetching === true) return <div>Loading whole component</div>;
-    
+    if (isFetching) return <div>Loading whole component</div>;
     const hasResult = results && results[amount] && results[amount][term];
     const result = hasResult ? results[amount][term] : null;
 
