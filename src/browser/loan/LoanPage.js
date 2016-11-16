@@ -21,8 +21,8 @@ export default class LoanPage extends Component {
   }
   render() {
     const { isFetching, sliderConfiguration, changeAmount, changeTerm, term, amount, results } = this.props;
-    const { amountInterval, termInterval } = sliderConfiguration;
     if (isFetching) return <div>Loading whole component</div>;
+    const { amountInterval, termInterval } = sliderConfiguration;
     const hasResult = results && results[amount] && results[amount][term];
     const result = hasResult ? results[amount][term] : null;
 
